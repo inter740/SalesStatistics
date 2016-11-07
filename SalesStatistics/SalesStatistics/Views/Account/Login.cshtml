@@ -1,0 +1,25 @@
+﻿@model SalesStatistics.Models.AutorizeModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+
+@if (SalesStatistics.Helpers.AuthHelper.IsAuthenticated(Context))
+{
+    @SalesStatistics.Helpers.AuthHelper.GetUser(Context).LastName<br />
+    @Html.ActionLink("Выйти", "LogOff", "Account")<br />
+}
+else
+{
+    using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
+    {
+        @Html.TextBoxFor(l => l.LastName)
+        @Html.ValidationMessageFor(l => l.LastName)<br />
+        @Html.PasswordFor(l => l.Password)
+        @Html.ValidationMessageFor(l => l.Password)<br />
+        <input type="submit" value="Войти" />
+    }
+}

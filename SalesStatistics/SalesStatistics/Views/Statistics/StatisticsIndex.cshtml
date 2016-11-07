@@ -1,0 +1,145 @@
+﻿@model SalesStatistics.Models.ModelForStatistics
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/MainCSS/StatisticsPage.css" rel="stylesheet" />
+@*<script src="../../scripts/MainScript/IndexJS.js"></script>*@
+
+
+<h2>Статистика продаж по группам</h2>
+
+<div class="tabsLink">
+    <a href="#tabBestsellers" id="linkBest">Хит продаж</a>
+    <a href="#tabAppliances" id="linkAppliances">Бытовая техника</a>
+    <a href="#tabSim" id="linkSim">Сим-карты</a>
+    <a href="#tabInsurance" id="linkInsurance">Страховки</a>
+</div>
+
+<div id="StatisticsContainer">
+    <br>
+    <a class="tabs" id="tabBestsellers"></a>
+    <div class="tab" id="containerForBestsellers">
+        <div class="DataFilters">
+            <b style="color: black">Проданно хитов: <label id="NumberOfSalesHitsLabel"></label></b><br />
+            <b style="color: black">Средняя стоимость проданных хитов:<label id="arangePriceOfSalesHitsLabel"></label></b><br />
+            <b style="color: black">Общая стоимость проданных хитов:<label id="totalPriceOfSalesHitsLabel"></label></b><br />
+
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchByMonth" checked="checked" /><b>Показать за месяц</b>
+                <select class="selectMonth" id="selectSearchByMonth" data-month="@DateTime.Today.Month"></select>
+            </div><br />
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchByPeriod" /><b>Показать за период</b>
+                <b>С</b> <select class="selectMonth" id="startingMontForBestsellers" data-startingMontForBestsellersh="@DateTime.Today.Month"></select>
+                <b>По</b><select class="selectMonth" id="finalMonthForBestsellers" data-finalMonthForBestsellers="@DateTime.Today.Month"></select>
+            </div><br />
+        </div><br />
+
+        <table class="table">
+            <caption style="color: forestgreen">Таблица продажи хитов</caption>
+            <tr>
+                <th><b class="th">Дата</b></th>
+                <th><b class="th">Цена</b></th>
+                <th><b class="th">Кол-во</b></th>
+            </tr>
+
+            @foreach (var best in @Model.Bestsellers)
+            {
+                <tr>
+                    <td><b class="td">@best.Date.Day<b>.</b>@best.Date.Month<b>.</b>@best.Date.Year</b></td>
+                    <td><b class="td">@best.Price</b></td>
+                    <td><b class="td">@best.Count</b></td>
+                </tr>
+            }
+
+        </table><br />
+    </div>
+
+    <a class="tabs" id="tabAppliances"></a>
+    <div class="tab" id="containerForAppliances" hidden="true">
+        <div class="DataFilters">
+            <b style="color: black">Проданно бытовой техники: <label id="NumberOfSalesAppliancesLabel"></label></b><br />
+            <b style="color: black">Средняя стоимость проданной бытовухи:<label id="arangePriceOfSalesAppliancesLabel"></label></b><br />
+            <b style="color: black">Общая стоимость проданной бытовухи:<label id="totalPriceOfSalesAppliancesLabel"></label></b><br />
+
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchByMonthForAppliances" checked="checked" /><b>Показать за месяц</b>
+                <select class="selectMonth" id="selectSearchByMonthForAppliances" data-month="@DateTime.Today.Month"></select>
+            </div><br />
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchByPeriodForAppliances" /><b>Показать за период</b>
+                <b>С</b> <select class="selectMonth" id="startingMonthForAppliances" data-month="@DateTime.Today.Month"></select>
+                <b>По</b><select class="selectMonth" id="finalMonthForAppliances" data-month="@DateTime.Today.Month"></select>
+            </div><br />
+        </div><br />
+
+        <table class="table">
+            <caption style="color: forestgreen">Таблица продажи бытовой техники</caption>
+            <tr>
+                <th><b class="th">Дата</b></th>
+                <th><b class="th">Цена</b></th>
+                <th><b class="th">Кол-во</b></th>
+                <th><b class="th">Тип</b></th>
+            </tr>
+            @foreach (var appli in @Model.Applianceses)
+            {
+                <tr>
+                    <td><b class="td">@appli.Date.Day<b>.</b>@appli.Date.Month<b>.</b>@appli.Date.Year</b></td>
+                    <td><b class="td">@appli.Price</b></td>
+                    <td><b class="td">@appli.Count</b></td>
+                    <td><b class="td">@appli.Type</b></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <a class="tabs" id="tabSim"></a>
+    <div class="tab" id="containerForSimCard" hidden="true">
+        <div class="DataFilters">
+            <b style="color: black">Проданно сим-карт: <label id="NumberOfSalesSimLabel"></label></b><br />
+            <div>
+                <input type="checkbox" class="RadioInput_searchBy" id="searchByOperatorsForSim" /><b>Показать данные только по оператору:</b>
+                <select class="selectOperator" id="selectSearchByOperatorsForSim">
+                    <option id="Megafon">Megafon</option>
+                    <option id="Beeline">Beeline</option>
+                    <option id="Yota">Yota</option>
+                    <option id="Tele2">Tele2</option>
+                    <option id="MTS">MTS</option>
+                </select>
+            </div><br />
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchByMonthForSim" checked="checked" /><b>Показать за месяц</b>
+                <select class="selectMonth" id="selectSearchByMonthForSim" data-month="@DateTime.Today.Month"></select>
+            </div><br />
+            <div>
+                <input type="radio" class="RadioInput_searchBy" id="searchForPeriodForSim" /><b>Показать за период</b>
+                <b>С</b> <select class="selectMonth" disabled="disabled" id="startingMonthForSim" data-startingMontForSim="@DateTime.Today.Month"></select>
+                <b>По</b><select class="selectMonth" disabled="disabled" id="finalMonthForSim" data-finalMonthForSim="@DateTime.Today.Month"></select>
+            </div><br />
+        </div><br />
+
+        <table class="table">
+            <caption style="color: forestgreen">Таблица продажи sim-карт</caption>
+            <tr>
+                <th><b class="th">Дата</b></th>
+                <th><b class="th">Оператор</b></th>
+
+            </tr>
+            @foreach (var sim in @Model.SimCards)
+            {
+                <tr>
+                    <td><b class="td">@sim.Date.Day<b>.</b>@sim.Date.Month<b>.</b>@sim.Date.Year</b></td>
+                    <td><b class="td">@sim.Operator</b></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <a class="tabs" id="tabInsurance" disabled="true"></a>
+    <div class="tab" id="containerForInsurance" hidden="true">
+        <br>
+    </div>
+</div>
+
+@Scripts.Render("~/scripts/MainScript/IndexJS.js")

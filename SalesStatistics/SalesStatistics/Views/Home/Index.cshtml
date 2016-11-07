@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Система подсчета основных показателей продавца-консультанта</h2>
+
+<div>
+    <div class="containerToAdd" id="BestsellerContainer">
+        @Html.Partial("_Bestseller")
+    </div><br />
+
+    <div class="containerToAdd" id="AppliancesContainer">
+        @Html.Partial("_Appliances")
+    </div><br />
+
+    <div class="containerToAdd" id="SimCardContainer">
+        @Html.Partial("_SimCard")
+    </div><br />
+
+    <div class="containerToAdd" id="InsuranceContainer">
+        @Html.Partial("_Insurance")
+    </div>
+</div>
+

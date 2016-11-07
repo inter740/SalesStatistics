@@ -1,0 +1,78 @@
+﻿#StatisticsContainer {
+    height: 500px;
+    width: 90%;
+    border: 3px solid cornflowerblue;
+    overflow: auto;
+    position: relative;
+ }
+
+.tab {
+    padding-left: 10%;
+    width: 90%;
+    position:absolute; /* Абсолютное позиционирование */
+    /*visibility: hidden;*/    /* Изначально - спрятан */
+    /*display: none;*/
+    z-index: 10;    /* z-index */
+    color:#478CFB; /* Цвет */
+    font: bold 12pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+    
+}
+
+.DataFilters {
+    position: absolute;
+    border: 1px black;
+    padding-left: 40%;
+    
+}
+
+
+
+.tabsLink a{
+    background-color:#478CFB; 
+    padding:5px; /* Внутренние отступы */
+    font: bold 12pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
+    color:#fff;
+    text-decoration:none; /* Отсутствие нижней линии */
+    padding: 2px;
+
+    /* Округление */
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+}
+
+/* table*/
+.table {
+    border: 2px forestgreen;
+    float: left;
+    width: 30%;  
+}
+
+.th {
+    color: black;
+}
+
+.td {
+    color: darkgray;
+}
+
+/*Main index*/
+.containerToAdd {
+    margin: 5px;
+    padding: 5px;
+    border: 2px black solid;
+    background-color: gainsboro;
+    width: 200px;
+    overflow: hidden;
+}
+
+
+.nameFormAdd {
+    color: crimson;
+    text-align: center;
+    font-size: medium;
+}

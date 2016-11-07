@@ -1,0 +1,9 @@
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.BL.dll
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.BL.pdb
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.dll
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.pdb
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.Data.dll
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\EntityFramework.dll
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.Data.pdb
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\EntityFramework.xml
+c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.csprojResolveAssemblyReference.cache
