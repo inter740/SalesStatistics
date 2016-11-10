@@ -20,11 +20,10 @@ namespace SalesStatistics.Models
 
         public ModelForStatistics(User user)
         {
-            Bestsellers = _service.Get<Bestseller>();
-            Applianceses = _service.Get<Appliances>();
-            Insurances = _service.Get<Insurance>();
-            SimCards = _service.Get<SimCard>();
-            UserId = user.Id;
+            Bestsellers = _service.Get<Bestseller>().Where(x => x.UserId == user.Id);
+            Applianceses = _service.Get<Appliances>().Where(x => x.UserId == user.Id);
+            Insurances = _service.Get<Insurance>().Where(x => x.UserId == user.Id);
+            SimCards = _service.Get<SimCard>().Where(x=>x.UserId==user.Id);
         }
     }
 }

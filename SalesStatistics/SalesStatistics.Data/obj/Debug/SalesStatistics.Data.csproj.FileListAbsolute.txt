@@ -10,3 +10,15 @@ c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatis
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.csprojResolveAssemblyReference.cache
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.Migrations.init.resources
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.csproj.GenerateResource.Cache
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.csprojResolveAssemblyReference.cache
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.Migrations.init.resources
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.csproj.GenerateResource.Cache
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\obj\Debug\SalesStatistics.Data.pdb
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\SalesStatistics.Data.dll.config
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\SalesStatistics.Data.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\SalesStatistics.Data.pdb
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\EntityFramework.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\EntityFramework.xml
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.Data\bin\Debug\EntityFramework.SqlServer.xml

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SalesStatistics.CustomAttribute;
 using SalesStatistics.Data;
+using SalesStatistics.Data.dto;
 using SalesStatistics.Data.Entities;
 using SalesStatistics.Models;
 
@@ -34,28 +35,33 @@ namespace SalesStatistics.Controllers
         [HttpPost]
         public void AddBestsellers(Bestseller bestseller)
         {
+            bestseller.UserId = GetUserId();
             _service.AddBest(bestseller);
         }
 
         [HttpPost]
         public void AddAppliances(Appliances appliances)
         {
+            appliances.UserId = GetUserId();
             _service.AddAppliances(appliances);
         }
 
         [HttpPost]
         public void AddInsurance(Insurance insurance)
         {
+            insurance.UserId = GetUserId();
             _service.AddInsurance(insurance);
         }
 
         [HttpPost]
         public void AddSimCard(SimCard simCard)
         {
+            simCard.UserId = GetUserId();
             _service.AddSimCard(simCard);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public string GetUserName()
         {
             var user = Helpers.AuthHelper.GetUser(HttpContext);
@@ -65,14 +71,11 @@ namespace SalesStatistics.Controllers
             return model.UserName;
         }
 
-        [HttpPost]
-        public int GetUserId()
+        private int GetUserId()
         {
             var user = Helpers.AuthHelper.GetUser(HttpContext);
-
-            ModelForHome model = new ModelForHome(user);
-
-            return model.UserId;
+            return user.Id;
         }
+
     }
 }

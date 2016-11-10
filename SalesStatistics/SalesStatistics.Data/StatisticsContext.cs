@@ -14,7 +14,7 @@ namespace SalesStatistics.Data
         DbSet<Insurance> Insurances { get; set; }
         DbSet<Appliances> Applianceses { get; set; }
         DbSet<SimCard> SimCards { get; set; }
-        public DbSet<User> Users { get; set; }
+        DbSet<User> Users { get; set; }
         DbSet<Role> Roles { get; set; }
 
         static StatisticsContext()
@@ -23,6 +23,6 @@ namespace SalesStatistics.Data
         }
 
         public StatisticsContext() : base("StatisticsSalesDb")
-        { }
+        {}
     }
 }

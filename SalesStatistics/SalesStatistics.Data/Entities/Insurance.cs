@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SalesStatistics.Data.Enum;
 
 namespace SalesStatistics.Data.Entities
 {
@@ -14,11 +15,6 @@ namespace SalesStatistics.Data.Entities
         public Insurance()
         {
             Date = DateTime.Today;
-        }
-
-        public enum TypeInsurance
-        {
-            Portable, Stationary
         }
     }
 }

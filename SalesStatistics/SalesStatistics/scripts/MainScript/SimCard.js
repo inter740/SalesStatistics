@@ -7,7 +7,7 @@
 
         $.ajax({
             type: "POST",
-            url: "Home/AddSimCard",
+            url: "http://localhost:50601/Home/AddSimCard",
             dataType: "json",
             data: { simCard: simCard }
         });

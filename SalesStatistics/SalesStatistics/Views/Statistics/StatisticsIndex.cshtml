@@ -36,7 +36,7 @@
             </div><br />
         </div><br />
 
-        <table class="table">
+        <table class="table" id="BestsellerTable">
             <caption style="color: forestgreen">Таблица продажи хитов</caption>
             <tr>
                 <th><b class="th">Дата</b></th>
@@ -44,7 +44,8 @@
                 <th><b class="th">Кол-во</b></th>
             </tr>
 
-            @foreach (var best in @Model.Bestsellers)
+        
+            @foreach (var best in @Model.Bestsellers.Where(x=>x.UserId==Model.UserId))
             {
                 <tr>
                     <td><b class="td">@best.Date.Day<b>.</b>@best.Date.Month<b>.</b>@best.Date.Year</b></td>

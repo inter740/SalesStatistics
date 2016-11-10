@@ -8,7 +8,7 @@
 
         $.ajax({
             type: "POST",
-            url: "Home/AddInsurance",
+            url: "http://localhost:50601/Home/AddInsurance",
             dataType: "json",
             data: { insurance: insurance }
         });

@@ -11,6 +11,7 @@ namespace SalesStatistics.Models
     {
         public int UserId { get; set; }
 
+        
         [Required(ErrorMessage = " *")]
         public string FirstName { get; set; }
 

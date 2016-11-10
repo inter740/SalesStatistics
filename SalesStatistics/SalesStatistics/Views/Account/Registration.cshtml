@@ -1,7 +1,22 @@
-﻿
+﻿@model SalesStatistics.Models.RegistrationModel
+
 @{
     ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Registration</h2>
+
+@using (Html.BeginForm("Registration", "Account", FormMethod.Post))
+{
+    <text>Имя:</text> @Html.TextBoxFor(r => r.FirstName)
+    @Html.ValidationMessageFor(r => r.FirstName)<br />
+    <text>Фамилия: </text> @Html.TextBoxFor(r => r.LastName)
+    @Html.ValidationMessageFor(r => r.LastName)<br />
+        <text>Пароль: </text> @Html.PasswordFor(r => r.Password)
+        @Html.ValidationMessageFor(r => r.Password)<br />
+        <text>Повторите пароль: </text> @Html.PasswordFor(r => r.DPassword)
+        @Html.ValidationMessageFor(r => r.DPassword)<br />
+        <input type="submit" value="Зарегистрироваться" />
+}
 

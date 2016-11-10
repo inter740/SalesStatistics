@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SalesStatistics.Data.dto;
 using SalesStatistics.Data.Entities;
 
 namespace SalesStatistics.Models
@@ -11,6 +12,7 @@ namespace SalesStatistics.Models
         public string UserName { get; set; }
         public string LastName { get; set; }
         public int UserId { get; set; }
+        public DtoUser Dto { get; set; }
 
         public ModelForHome(User user)
         {
@@ -18,14 +20,13 @@ namespace SalesStatistics.Models
             {
                 UserName = user.FirstName + " " + user.LastName;
                 LastName = user.LastName;
-                UserId = user.Id;
+                Dto = new DtoUser(user);
             }
             else
             {
-                UserName = "Гость";
-                LastName = "Гость";
+                UserName = "";
             }
-
+            
         }
     }
 }

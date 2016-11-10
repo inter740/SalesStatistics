@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using SalesStatistics.BL.castToDto;
 using SalesStatistics.CustomAttribute;
 using SalesStatistics.Data;
+using SalesStatistics.Data.dto;
 using SalesStatistics.Data.Entities;
 using SalesStatistics.Models;
 
@@ -13,36 +16,48 @@ namespace SalesStatistics.Controllers
     [PageAuthorize(UserRoles = "User,Admin")]
     public class StatisticsController : Controller
     {
-            private ServiceToWorkWithEntityFromDb _service = new ServiceToWorkWithEntityFromDb();
-            
+        private ServiceToWorkWithEntityFromDb _service = new ServiceToWorkWithEntityFromDb();
 
-            // GET: Statistics
-            [AllowAnonymous]
-            public ActionResult Index()
+
+        // GET: Statistics
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            if (!Helpers.AuthHelper.IsAuthenticated(HttpContext))
             {
-                if (!Helpers.AuthHelper.IsAuthenticated(HttpContext))
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-                var user = Helpers.AuthHelper.GetUser(HttpContext);
-
-                ModelForStatistics model = new ModelForStatistics(user);
-
-
-                return View("StatisticsIndex", model);
+                return RedirectToAction("Login", "Account");
             }
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
 
-            [HttpPost]
-            public JsonResult ReturnPerMonth(int month)
-            {
-                var hits = _service.Get<Bestseller>().Where(x=>x.Date.Month==month);
-                return Json(hits);
-            }
+            ModelForStatistics model = new ModelForStatistics(user);
+
+
+            return View("StatisticsIndex", model);
+        }
 
         [HttpPost]
-        public JsonResult ReturnHitsPerPeriod(int startingMonth, int finalMonth)
+        public JsonResult ReturnPerMonth(int month)
         {
-            var numberOf = _service.Get<Bestseller>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var hits2 = _service.Get<Bestseller>().Where(x => x.Date.Month == month && x.UserId == user.Id);
+            var hits = CastBestsellerToDto.BestsellersListDto(hits2);
+
+            return Json(hits);
+        }
+
+        //[HttpPost]
+        //public JsonResult ReturnHitsPerPeriod(int startingMonth, int finalMonth)
+        //{
+        //    var numberOf = _service.Get<Bestseller>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
+
+        //    return Json(numberOf);
+        //}
+
+        //TODO this. Not come inquiry from ajax
+        [HttpPost]
+        public JsonResult ReturnHitsPerPeriod(DtoUser dto)
+        {
+            var numberOf = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth));
 
             return Json(numberOf);
         }

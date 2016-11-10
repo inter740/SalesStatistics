@@ -37,6 +37,9 @@ namespace SalesStatistics.Controllers
                 }
 
                 ServiceToWorkWithUsers.AddUser(user);
+
+                AutorizeModel autorize = new AutorizeModel() {LastName = user.LastName, Password = user.Password};
+                LoginAfterRegistration(autorize);
             }
 
             return RedirectToAction("Login", "Account");
@@ -71,6 +74,24 @@ namespace SalesStatistics.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        private ActionResult LoginAfterRegistration(AutorizeModel autorize)
+        {
+            User user = ServiceToWorkWithUsers.GetUser(autorize.LastName, autorize.Password);
+           
+            if (user != null)
+            {
+                Helpers.AuthHelper.LogInUser(HttpContext, user.Cookies);
+
+                switch (user.Role.RoleName)
+                {
+                    case "Admin":
+                        return RedirectToAction("Admin", "Admin");
+                    case "User":
+                        return RedirectToAction("Index", "Home");
+                }
+            }
+            return RedirectToAction("Login", "Account");
+        }
 
         public ActionResult LogOff()
         {

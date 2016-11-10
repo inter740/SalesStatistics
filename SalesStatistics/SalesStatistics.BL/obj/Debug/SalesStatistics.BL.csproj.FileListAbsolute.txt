@@ -7,3 +7,12 @@ c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatis
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.Data.pdb
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\bin\Debug\EntityFramework.xml
 c:\users\inter\documents\visual studio 2015\Projects\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.csprojResolveAssemblyReference.cache
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.BL.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.BL.pdb
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.Data.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\EntityFramework.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\SalesStatistics.Data.pdb
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\bin\Debug\EntityFramework.xml
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.csprojResolveAssemblyReference.cache
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.dll
+C:\Users\inter\Documents\git\SalesStatistics\SalesStatistics\SalesStatistics.BL\obj\Debug\SalesStatistics.BL.pdb
