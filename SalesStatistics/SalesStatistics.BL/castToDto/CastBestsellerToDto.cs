@@ -24,5 +24,35 @@ namespace SalesStatistics.BL.castToDto
 
             return dtoList;
         }
+
+        public static List<DtoAppliances> AppliancesesListDto(IEnumerable<Appliances> applianceses)
+        {
+            List<DtoAppliances> dtoList = new List<DtoAppliances>();
+
+
+            foreach (var a in applianceses)
+            {
+                DtoAppliances dto = new DtoAppliances(a);
+
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
+        }
+
+        public static List<DtoSim> SimListDto(IEnumerable<SimCard> sim)
+        {
+            List<DtoSim> dtoList = new List<DtoSim>();
+
+
+            foreach (var s in sim)
+            {
+                DtoSim dto = new DtoSim(s);
+
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
+        }
     }
 }

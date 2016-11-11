@@ -7,7 +7,7 @@ using SalesStatistics.Data.Entities;
 
 namespace SalesStatistics.Data.dto
 {
-    public class DtoBestseller
+    public class DtoAppliances
     {
         public int Price { get; set; }
         public int Count { get; set; }
@@ -17,14 +17,13 @@ namespace SalesStatistics.Data.dto
         public int StartMonth { get; set; }
         public int EndMonth { get; set; }
 
-        public DtoBestseller(Bestseller best)
+        public DtoAppliances(Appliances appliances)
         {
-            Count = best.Count;
-            Price = best.Price;
-            Date = best.Date.Day.ToString()+"."+ best.Date.Month.ToString()+"."+ best.Date.Year.ToString();
+            Count = appliances.Count;
+            Price = appliances.Price;
+            Date = appliances.Date.Day.ToString() + "." + appliances.Date.Month.ToString() + "." + appliances.Date.Year.ToString();
         }
 
-        public DtoBestseller() { }
-
+        public DtoAppliances() { }
     }
 }

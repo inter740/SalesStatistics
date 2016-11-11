@@ -49,7 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dto\DtoAppliances.cs" />
     <Compile Include="dto\dtoBestseller.cs" />
+    <Compile Include="dto\DtoSim.cs" />
     <Compile Include="dto\dtoUser.cs" />
     <Compile Include="Entities\Appliances.cs" />
     <Compile Include="Entities\BaseEntity.cs" />

@@ -4,27 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SalesStatistics.Data.Entities;
+using SalesStatistics.Data.Enum;
 
 namespace SalesStatistics.Data.dto
 {
-    public class DtoBestseller
+    public class DtoSim
     {
-        public int Price { get; set; }
-        public int Count { get; set; }
+        public Operators Operator { get; set; }
         public string Date { get; set; }
 
         public int Month { get; set; }
         public int StartMonth { get; set; }
         public int EndMonth { get; set; }
 
-        public DtoBestseller(Bestseller best)
+        public DtoSim(SimCard sim)
         {
-            Count = best.Count;
-            Price = best.Price;
-            Date = best.Date.Day.ToString()+"."+ best.Date.Month.ToString()+"."+ best.Date.Year.ToString();
+            Operator = sim.Operator;
+            Date = sim.Date.Day.ToString() + "." + sim.Date.Month.ToString() + "." + sim.Date.Year.ToString();
         }
 
-        public DtoBestseller() { }
-
+        public DtoSim() { }
     }
 }

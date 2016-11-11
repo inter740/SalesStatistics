@@ -29,5 +29,7 @@ namespace SalesStatistics.Data.dto
             Role = user.Role;
             Cookies = user.Cookies;
         }
+        
+        public DtoUser() { }
     }
 }

@@ -21,7 +21,7 @@ namespace SalesStatistics.Controllers
             return View();
         }
 
-        //todo Auto Login when registering a new user
+        
         [HttpPost]
         public ActionResult Registration(User user)
         {

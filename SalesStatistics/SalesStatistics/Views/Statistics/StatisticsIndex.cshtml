@@ -1,10 +1,9 @@
-﻿@model SalesStatistics.Models.ModelForStatistics
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="/Content/MainCSS/StatisticsPage.css" rel="stylesheet" />
-@*<script src="../../scripts/MainScript/IndexJS.js"></script>*@
 
 
 <h2>Статистика продаж по группам</h2>
@@ -43,17 +42,6 @@
                 <th><b class="th">Цена</b></th>
                 <th><b class="th">Кол-во</b></th>
             </tr>
-
-        
-            @foreach (var best in @Model.Bestsellers.Where(x=>x.UserId==Model.UserId))
-            {
-                <tr>
-                    <td><b class="td">@best.Date.Day<b>.</b>@best.Date.Month<b>.</b>@best.Date.Year</b></td>
-                    <td><b class="td">@best.Price</b></td>
-                    <td><b class="td">@best.Count</b></td>
-                </tr>
-            }
-
         </table><br />
     </div>
 
@@ -75,7 +63,7 @@
             </div><br />
         </div><br />
 
-        <table class="table">
+        <table class="table" id="AppliancesTable">
             <caption style="color: forestgreen">Таблица продажи бытовой техники</caption>
             <tr>
                 <th><b class="th">Дата</b></th>
@@ -83,15 +71,6 @@
                 <th><b class="th">Кол-во</b></th>
                 <th><b class="th">Тип</b></th>
             </tr>
-            @foreach (var appli in @Model.Applianceses)
-            {
-                <tr>
-                    <td><b class="td">@appli.Date.Day<b>.</b>@appli.Date.Month<b>.</b>@appli.Date.Year</b></td>
-                    <td><b class="td">@appli.Price</b></td>
-                    <td><b class="td">@appli.Count</b></td>
-                    <td><b class="td">@appli.Type</b></td>
-                </tr>
-            }
         </table>
     </div>
 
@@ -120,20 +99,13 @@
             </div><br />
         </div><br />
 
-        <table class="table">
+        <table class="table" id="SimTable">
             <caption style="color: forestgreen">Таблица продажи sim-карт</caption>
             <tr>
                 <th><b class="th">Дата</b></th>
                 <th><b class="th">Оператор</b></th>
 
             </tr>
-            @foreach (var sim in @Model.SimCards)
-            {
-                <tr>
-                    <td><b class="td">@sim.Date.Day<b>.</b>@sim.Date.Month<b>.</b>@sim.Date.Year</b></td>
-                    <td><b class="td">@sim.Operator</b></td>
-                </tr>
-            }
         </table>
     </div>
 

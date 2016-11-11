@@ -9,6 +9,9 @@ $('#linkBest').click(function () {
     $('#linkAppliances').css('background-color', '#478CFB');
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkSim').css('background-color', '#478CFB');
+
+    changeValueMonthToDefault();
+    ReturnBestsellersPerMonth();
 });
 
 $('#linkAppliances').click(function () {
@@ -17,6 +20,9 @@ $('#linkAppliances').click(function () {
     $('#linkBest').css('background-color', '#478CFB');
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkSim').css('background-color', '#478CFB');
+
+    changeValueMonthToDefault();
+    ReturnAppliancesForMonth();
 });
 
 $('#linkSim').click(function () {
@@ -70,6 +76,9 @@ $.ajax({
     }
 });
 
+
+
+//--------------------------------------------------------------------------Start Bestsellers
 function returnTabaleForBestsellers(obj) {
 
     $('.addedTr').detach();
@@ -78,11 +87,29 @@ function returnTabaleForBestsellers(obj) {
         var date = obj[i].Date;
         $('#BestsellerTable').append('<tr class="addedTr"><td> ' + date + ' </td><td>' + obj[i].Price + '</td><td>' + obj[i].Count + '</td></tr>');
     }
+
+    var totalPrice = 0;
+    var count = 0;
+    var arangePrice = 0;
+
+    for (var i = 0; i < obj.length; i++) {
+        totalPrice += obj[i].Price;
+        count += obj[i].Count;
+    }
+
+    if (totalPrice == 0) {
+        arangePrice = 0;
+    } else {
+        arangePrice += Math.ceil(totalPrice / count);
+    }
+
+
+
+    $('#NumberOfSalesHitsLabel').text(count);
+    $('#totalPriceOfSalesHitsLabel').text(totalPrice);
+    $('#arangePriceOfSalesHitsLabel').text(arangePrice);
 };
 
-
-
-//--------------------------------------------------------------------------Start Bestsellers
 
 //Startup page
 $('#startingMontForBestsellers').prop('disabled', true);
@@ -101,40 +128,25 @@ function changeValueMonthToDefault() {
     $('.selectMonth').val(monthNow);
 }
 
-function ReturnBestsellersPerMonth(month) {
+function ReturnBestsellersPerMonth() {
+    var month = $('.selectMonth').val();
+    var dto = {
+        Month: month
+    }
+
     $.ajax({
         type: "POST",
         url: way + '/Statistics/ReturnPerMonth',
         dataType: "json",
-        data: { month: month },
+        data: { dto: dto },
         success: function (obj) {
             returnTabaleForBestsellers(obj);
-
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice === 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesHitsLabel').text(count);
-            $('#totalPriceOfSalesHitsLabel').text(totalPrice);
-            $('#arangePriceOfSalesHitsLabel').text(arangePrice);
         }
     });
 }
 
-var month = $('.selectMonth').val();
 
-ReturnBestsellersPerMonth(month);
+ReturnBestsellersPerMonth();
 
 //filters by one month
 $('#searchByMonth').click(function () {
@@ -146,22 +158,40 @@ $('#searchByMonth').click(function () {
 
     $('#selectSearchByMonth').prop('disabled', false);
 
-    var month = $('#selectSearchByMonth').val();
-
-    ReturnBestsellersPerMonth(month);
+    ReturnBestsellersPerMonth();
 });
 
 //change selected month in #selectSearchByMonth
 $('#selectSearchByMonth').change(function () {
 
-    var month = $('#selectSearchByMonth').val();
-
-    ReturnBestsellersPerMonth(month);
+    ReturnBestsellersPerMonth();
 });
 
 
 //filters by period
 
+function returnBestsellersByPeriod() {
+    $.ajax({
+        type: "POST",
+        url: way + '/Statistics/ReturnBestsellersForPeriod',
+        dataType: "json",
+        data: { dto: periodBest() },
+        success: function (obj) {
+            returnTabaleForBestsellers(obj);
+        }
+    });
+}
+
+function periodBest() {
+    var startingMonth = $('#startingMontForBestsellers').val();
+    var finalMonth = $('#finalMonthForBestsellers').val();
+    var dto = {
+        StartMonth: startingMonth,
+        EndMonth: finalMonth
+    }
+
+    return dto;
+}
 
 $('#searchByPeriod').click(function () {
     $('#searchByMonth').prop('checked', false);
@@ -177,68 +207,12 @@ $('#searchByPeriod').click(function () {
 
     $('#selectSearchByMonth').prop('disabled', true);
 
-    var startingMonth = $('#startingMontForBestsellers').val();
-    var finalMonth = $('#finalMonthForBestsellers').val();
-    var dto = { "StartMonth": startingMonth, "EndMonth": finalMonth };
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnHitsPerPeriod',
-        dataType: "json",
-        data: { dto: dto },
-        success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice == 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesHitsLabel').text(count);
-            $('#totalPriceOfSalesHitsLabel').text(totalPrice);
-            $('#arangePriceOfSalesHitsLabel').text(arangePrice);
-        }
-    });
+    returnBestsellersByPeriod();
 });
 
 $('#startingMontForBestsellers, #finalMonthForBestsellers').change(function () {
 
-    var startingMonth = $('#startingMontForBestsellers').val();
-    var finalMonth = $('#finalMonthForBestsellers').val();
-
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnHitsPerPeriod',
-        dataType: "json",
-        data: { startingMonth: startingMonth, finalMonth: finalMonth },
-        success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice == 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesHitsLabel').text(count);
-            $('#totalPriceOfSalesHitsLabel').text(totalPrice);
-            $('#arangePriceOfSalesHitsLabel').text(arangePrice);
-        }
-    });
+    returnBestsellersByPeriod();
 });
 
 //--------------------------------------------------------------------------End Bestsellers
@@ -246,38 +220,77 @@ $('#startingMontForBestsellers, #finalMonthForBestsellers').change(function () {
 
 
 //------------------------------------------------------------------------Start Appliances
+function returnTabaleForApplianceses(obj) {
+
+    $('.addedTr').detach();
+
+    for (var i = 0; i < obj.length; i++) {
+        var date = obj[i].Date;
+        $('#AppliancesTable').append('<tr class="addedTr"><td> ' + date + ' </td><td>' + obj[i].Price + '</td><td>' + obj[i].Count + '</td></tr>');
+    }
+
+    var totalPrice = 0;
+    var count = 0;
+    var arangePrice = 0;
+
+    for (var i = 0; i < obj.length; i++) {
+        totalPrice += obj[i].Price;
+        count += obj[i].Count;
+    }
+
+    if (totalPrice == 0) {
+        arangePrice = 0;
+    } else {
+        arangePrice += Math.ceil(totalPrice / count);
+    }
+
+
+
+    $('#NumberOfSalesAppliancesLabel').text(count);
+    $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
+    $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
+};
+
+function ReturnAppliancesForMonth() {
+
+    var month = $('#selectSearchByMonthForAppliances').val();
+
+    var dto = { Month: month };
+
+    $.ajax({
+        type: "POST",
+        url: way + '/Statistics/ReturnAppliancesesForMonth',
+        dataType: "json",
+        data: { dto: dto },
+        success: function (obj) {
+            returnTabaleForApplianceses(obj);
+
+            var totalPrice = 0;
+            var count = 0;
+            var arangePrice = 0;
+
+            for (var i = 0; i < obj.length; i++) {
+                totalPrice += obj[i].Price;
+                count += obj[i].Count;
+            }
+
+            if (totalPrice === 0) {
+                arangePrice = 0;
+            } else {
+                arangePrice += Math.ceil(totalPrice / count);
+            }
+
+            $('#NumberOfSalesAppliancesLabel').text(count);
+            $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
+            $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
+        }
+    });
+}
+
 //starting page
 $('#startingMonthForAppliances').prop('disabled', true);
 $('#finalMonthForAppliances').prop('disabled', true);
-
-var month = $('#selectSearchByMonthForAppliances').val();
-$.ajax({
-    type: "POST",
-    url: way + '/Statistics/ReturnAppliancesesPerMonth',
-    dataType: "json",
-    data: { month: month },
-    success: function (obj) {
-        var totalPrice = 0;
-        var count = 0;
-        var arangePrice = 0;
-
-        for (var i = 0; i < obj.length; i++) {
-            totalPrice += obj[i].Price;
-            count += obj[i].Count;
-        }
-
-        if (totalPrice === 0) {
-            arangePrice = 0;
-        } else {
-            arangePrice += Math.ceil(totalPrice / count);
-        }
-
-        $('#NumberOfSalesAppliancesLabel').text(count);
-        $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
-        $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
-    }
-});
-
+ReturnAppliancesForMonth();
 
 //filters by one month
 $('#searchByMonthForAppliances').click(function () {
@@ -289,71 +302,47 @@ $('#searchByMonthForAppliances').click(function () {
 
     $('#selectSearchByMonthForAppliances').prop('disabled', false);
 
-    var month = $('#selectSearchByMonthForAppliances').val();
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnAppliancesesPerMonth',
-        dataType: "json",
-        data: { month: month },
-        success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
+    ReturnAppliancesForMonth();
 
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice === 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesAppliancesLabel').text(count);
-            $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
-            $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
-        }
-    });
 });
 
 $('#selectSearchByMonthForAppliances').change(function () {
 
-    var month = $('#selectSearchByMonthForAppliances').val();
+    ReturnAppliancesForMonth();
+});
+
+
+
+//filters by period
+
+function ReturnAppliancesForPeiod() {
     $.ajax({
         type: "POST",
-        url: way + '/Statistics/ReturnAppliancesesPerMonth',
+        url: way + '/Statistics/ReturnAppliancesesForPeriod',
         dataType: "json",
-        data: { month: month },
+        data: { dto: periodAppliances() },
         success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice === 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesAppliancesLabel').text(count);
-            $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
-            $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
+            returnTabaleForApplianceses(obj);
         }
     });
-});
+}
+
+function periodAppliances() {
+    var startingMonth = $('#startingMonthForAppliances').val();
+    var finalMonth = $('#finalMonthForAppliances').val();
+    var dto = {
+        StartMonth: startingMonth,
+        EndMonth: finalMonth
+    }
+
+    return dto;
+}
 
 $('#searchByPeriodForAppliances').click(function () {
     $('#searchByMonthForAppliances').prop('checked', false);
 });
 
-//filters by period
+
 $('#searchByPeriodForAppliances').click(function () {
     changeValueMonthToDefault();
     $('#searchByMonthForAppliances').prop('checked', false);
@@ -362,35 +351,7 @@ $('#searchByPeriodForAppliances').click(function () {
 
     $('#selectSearchByMonthForAppliances').prop('disabled', true);
 
-    var startingMonth = $('#startingMonthForAppliances').val();
-    var finalMonth = $('#finalMonthForAppliances').val();
-
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnAppliancesesPerPeriod',
-        dataType: "json",
-        data: { startingMonth: startingMonth, finalMonth: finalMonth },
-        success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice === 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesAppliancesLabel').text(count);
-            $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
-            $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
-        }
-    });
+    ReturnAppliancesForPeiod();
 });
 
 $('#startingMonthForAppliances, #finalMonthForAppliances').change(function () {
@@ -400,40 +361,44 @@ $('#startingMonthForAppliances, #finalMonthForAppliances').change(function () {
     $('#finalMonthForAppliances').prop('disabled', false);
     $('#startingMonthForAppliances').prop('disabled', false);
 
-    var startingMonth = $('#startingMonthForAppliances').val();
-    var finalMonth = $('#finalMonthForAppliances').val();
-
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnAppliancesesPerPeriod',
-        dataType: "json",
-        data: { startingMonth: startingMonth, finalMonth: finalMonth },
-        success: function (obj) {
-            var totalPrice = 0;
-            var count = 0;
-            var arangePrice = 0;
-
-            for (var i = 0; i < obj.length; i++) {
-                totalPrice += obj[i].Price;
-                count += obj[i].Count;
-            }
-
-            if (totalPrice === 0) {
-                arangePrice = 0;
-            } else {
-                arangePrice += Math.ceil(totalPrice / count);
-            }
-
-            $('#NumberOfSalesAppliancesLabel').text(count);
-            $('#totalPriceOfSalesAppliancesLabel').text(totalPrice);
-            $('#arangePriceOfSalesAppliancesLabel').text(arangePrice);
-        }
-    });
+    ReturnAppliancesForPeiod();
 });
 
 //----------------------------------------------------------------------------------End Appliances
 
 //----------------------------------------------------------------------------------Starting SimCard
+
+function returnTabaleForSim(obj) {
+
+    $('.addedTr').detach();
+
+    for (var i = 0; i < obj.length; i++) {
+
+        $('#SimTable').append('<tr class="addedTr"><td> ' + obj[i].Date + ' </td><td>' + obj[i].Operator + '</td></tr>');
+    }
+
+    var count = obj.length;
+
+    $('#NumberOfSalesSimLabel').text(count);
+};
+
+function ReturnSimForMonth() {
+
+    var month = $('#selectSearchByMonthForSim').val();
+
+    var dto = { Month: month };
+
+    $.ajax({
+        type: "POST",
+        url: way + '/Statistics/ReturnSimForMonth',
+        dataType: "json",
+        data: { dto: dto },
+        success: function (obj) {
+            returnTabaleForSim(obj);
+        }
+    });
+}
+
 //startup page
 $('#selectSearchByOperatorsForSim').prop('disabled', true);
 $(SearchByOneMonth());
@@ -451,9 +416,9 @@ function SearchByOneMonth(operator) {
     var controllerMethod;
 
     if (operator == undefined) {
-        controllerMethod = way + '/Statistics/ReturnSimPerMonth';
+        controllerMethod = way + '/Statistics/ReturnSimForMonth';
     } else {
-        controllerMethod = way + '/Statistics/ReturnSimPerMonthByOperator';
+        controllerMethod = way + '/Statistics/ReturnSimForMonthForOperator';
     }
 
     var month = $('#selectSearchByMonthForSim').val();
@@ -517,6 +482,7 @@ $('#selectSearchByMonthForSim').change(function () {
     var selectedOperator;
     if ($('#selectSearchByOperatorsForSim').prop('disabled') == false) {
         selectedOperator = $('#selectSearchByOperatorsForSim').val();
+        $(checkWhichSearchIsActiveByMonthOrForPeriod(selectedOperator));
     }
 
     $(checkWhichSearchIsActiveByMonthOrForPeriod(selectedOperator));
@@ -535,9 +501,9 @@ $('#selectSearchByOperatorsForSim').change(function () {
 function SearchForPeriodForSim(operator) {
     var controllerMethod;
     if (operator == undefined) {
-        controllerMethod = way + '/Statistics/ReturnSimPerPeriod';
+        controllerMethod = way + '/Statistics/ReturnSimForPeriod';
     } else {
-        controllerMethod = way + '/Statistics/ReturnSimPerPeriodByOperator';
+        controllerMethod = way + '/Statistics/ReturnSimPerPeriodForOperator';
     }
 
     var startMonth = $('#startingMonthForSim').val();

@@ -27,67 +27,65 @@ namespace SalesStatistics.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var user = Helpers.AuthHelper.GetUser(HttpContext);
 
-            ModelForStatistics model = new ModelForStatistics(user);
-
-
-            return View("StatisticsIndex", model);
+            return View("StatisticsIndex");
         }
 
+
         [HttpPost]
-        public JsonResult ReturnPerMonth(int month)
+        public JsonResult ReturnPerMonth(DtoBestseller dto)
         {
             var user = Helpers.AuthHelper.GetUser(HttpContext);
-            var hits2 = _service.Get<Bestseller>().Where(x => x.Date.Month == month && x.UserId == user.Id);
-            var hits = CastBestsellerToDto.BestsellersListDto(hits2);
+            var query = _service.Get<Bestseller>().Where(x => x.Date.Month == dto.Month && x.UserId == user.Id);
+            var hits = CastBestsellerToDto.BestsellersListDto(query);
 
             return Json(hits);
         }
 
-        //[HttpPost]
-        //public JsonResult ReturnHitsPerPeriod(int startingMonth, int finalMonth)
-        //{
-        //    var numberOf = _service.Get<Bestseller>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
 
-        //    return Json(numberOf);
-        //}
-
-        //TODO this. Not come inquiry from ajax
         [HttpPost]
-        public JsonResult ReturnHitsPerPeriod(DtoUser dto)
+        public JsonResult ReturnBestsellersForPeriod(DtoBestseller dto)
         {
-            var numberOf = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth));
-
-            return Json(numberOf);
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth)).Where(x => x.UserId == user.Id);
+            var hits = CastBestsellerToDto.BestsellersListDto(query);
+            return Json(hits);
         }
 
         [HttpPost]
-        public JsonResult ReturnAppliancesesPerMonth(int month)
+        public JsonResult ReturnAppliancesesForMonth(DtoAppliances dto)
         {
-            var numberOf = _service.Get<Appliances>().Where(x => x.Date.Month == month);
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<Appliances>().Where(x => x.Date.Month == dto.Month && x.UserId == user.Id);
+            var appli = CastBestsellerToDto.AppliancesesListDto(query);
 
-            return Json(numberOf);
+            return Json(appli);
         }
 
         [HttpPost]
-        public JsonResult ReturnAppliancesesPerPeriod(int startingMonth, int finalMonth)
+        public JsonResult ReturnAppliancesesForPeriod(DtoAppliances dto)
         {
-            var numberOf = _service.Get<Appliances>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<Appliances>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth)).Where(x => x.UserId == user.Id);
+            var appli = CastBestsellerToDto.AppliancesesListDto(query);
 
-            return Json(numberOf);
+            return Json(appli);
         }
 
+        //TODO js file(create table, reset month and so on)
         [HttpPost]
-        public JsonResult ReturnSimPerMonth(int month)
+        public JsonResult ReturnSimForMonth(DtoSim dto)
         {
-            var numberOf = _service.Get<SimCard>().Where(x => x.Date.Month == month);
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<SimCard>().Where(x => x.Date.Month == dto.Month && x.UserId == user.Id);
+            var sim = CastBestsellerToDto.SimListDto(query);
 
-            return Json(numberOf);
+            return Json(sim);
         }
 
+        //TODO all under this
         [HttpPost]
-        public JsonResult ReturnSimPerMonthByOperator(int month, string operatorName)
+        public JsonResult ReturnSimForMonthForOperator(int month, string operatorName)
         {
             var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month == month && x.Operator.ToString() == operatorName));
 
@@ -95,7 +93,7 @@ namespace SalesStatistics.Controllers
         }
 
         [HttpPost]
-        public JsonResult ReturnSimPerPeriod(int startingMonth, int finalMonth)
+        public JsonResult ReturnSimForPeriod(int startingMonth, int finalMonth)
         {
             var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
 
@@ -103,7 +101,7 @@ namespace SalesStatistics.Controllers
         }
 
         [HttpPost]
-        public JsonResult ReturnSimPerPeriodByOperator(int startingMonth, int finalMonth, string operatorName)
+        public JsonResult ReturnSimPerPeriodForOperator(int startingMonth, int finalMonth, string operatorName)
         {
             var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth && x.Operator.ToString() == operatorName));
 
