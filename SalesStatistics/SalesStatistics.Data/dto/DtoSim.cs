@@ -10,7 +10,7 @@ namespace SalesStatistics.Data.dto
 {
     public class DtoSim
     {
-        public Operators Operator { get; set; }
+        public string Operator { get; set; }
         public string Date { get; set; }
 
         public int Month { get; set; }
@@ -19,7 +19,7 @@ namespace SalesStatistics.Data.dto
 
         public DtoSim(SimCard sim)
         {
-            Operator = sim.Operator;
+            Operator = sim.Operator.ToString();
             Date = sim.Date.Day.ToString() + "." + sim.Date.Month.ToString() + "." + sim.Date.Year.ToString();
         }
 

@@ -19,6 +19,7 @@ namespace SalesStatistics.Controllers
         private ServiceToWorkWithEntityFromDb _service = new ServiceToWorkWithEntityFromDb();
 
 
+
         // GET: Statistics
         [AllowAnonymous]
         public ActionResult Index()
@@ -47,7 +48,7 @@ namespace SalesStatistics.Controllers
         public JsonResult ReturnBestsellersForPeriod(DtoBestseller dto)
         {
             var user = Helpers.AuthHelper.GetUser(HttpContext);
-            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth)).Where(x => x.UserId == user.Id);
+            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.UserId == user.Id));
             var hits = CastBestsellerToDto.BestsellersListDto(query);
             return Json(hits);
         }
@@ -66,13 +67,13 @@ namespace SalesStatistics.Controllers
         public JsonResult ReturnAppliancesesForPeriod(DtoAppliances dto)
         {
             var user = Helpers.AuthHelper.GetUser(HttpContext);
-            var query = _service.Get<Appliances>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth)).Where(x => x.UserId == user.Id);
+            var query = _service.Get<Appliances>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.UserId == user.Id));
             var appli = CastBestsellerToDto.AppliancesesListDto(query);
 
             return Json(appli);
         }
 
-        //TODO js file(create table, reset month and so on)
+
         [HttpPost]
         public JsonResult ReturnSimForMonth(DtoSim dto)
         {
@@ -85,27 +86,34 @@ namespace SalesStatistics.Controllers
 
         //TODO all under this
         [HttpPost]
-        public JsonResult ReturnSimForMonthForOperator(int month, string operatorName)
+        public JsonResult ReturnSimForMonthForOperator(DtoSim dto)
         {
-            var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month == month && x.Operator.ToString() == operatorName));
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<SimCard>().Where(x => (x.Date.Month == dto.Month && x.Operator.ToString() == dto.Operator && x.UserId == user.Id));
+            var sim = CastBestsellerToDto.SimListDto(query);
 
-            return Json(numberOf);
+            return Json(sim);
         }
 
         [HttpPost]
-        public JsonResult ReturnSimForPeriod(int startingMonth, int finalMonth)
+        public JsonResult ReturnSimForPeriod(DtoSim dto)
         {
-            var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth));
 
-            return Json(numberOf);
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<SimCard>().Where(x => x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.UserId == user.Id);
+            var sim = CastBestsellerToDto.SimListDto(query);
+
+            return Json(sim);
         }
 
         [HttpPost]
-        public JsonResult ReturnSimPerPeriodForOperator(int startingMonth, int finalMonth, string operatorName)
+        public JsonResult ReturnSimForPeriodForOperator(DtoSim dto)
         {
-            var numberOf = _service.Get<SimCard>().Where(x => (x.Date.Month >= startingMonth && x.Date.Month <= finalMonth && x.Operator.ToString() == operatorName));
+            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var query = _service.Get<SimCard>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.Operator.ToString() == dto.Operator && x.UserId == user.Id));
+            var sim = CastBestsellerToDto.SimListDto(query);
 
-            return Json(numberOf);
+            return Json(sim);
         }
 
 

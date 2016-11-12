@@ -11,7 +11,7 @@ $('#linkBest').click(function () {
     $('#linkSim').css('background-color', '#478CFB');
 
     changeValueMonthToDefault();
-    ReturnBestsellersPerMonth();
+    ReturnBestsellersForMonth();
 });
 
 $('#linkAppliances').click(function () {
@@ -31,6 +31,11 @@ $('#linkSim').click(function () {
     $('#linkAppliances').css('background-color', '#478CFB');
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkBest').css('background-color', '#478CFB');
+
+    changeValueMonthToDefault();
+    $('#searchByOperatorsForSim').prop('checked', false);
+    $('#selectSearchByOperatorsForSim').prop('disabled', true);
+    ReturnSimForMonthForOperator();
 });
 
 $('#linkInsurance').click(function () {
@@ -40,6 +45,7 @@ $('#linkInsurance').click(function () {
     $('#linkBest').css('background-color', '#478CFB');
     $('#linkSim').css('background-color', '#478CFB');
 });
+
 
 $('#linkAppliances').on('click', function () {
     $('.tab').hide();
@@ -79,6 +85,7 @@ $.ajax({
 
 
 //--------------------------------------------------------------------------Start Bestsellers
+
 function returnTabaleForBestsellers(obj) {
 
     $('.addedTr').detach();
@@ -128,7 +135,7 @@ function changeValueMonthToDefault() {
     $('.selectMonth').val(monthNow);
 }
 
-function ReturnBestsellersPerMonth() {
+function ReturnBestsellersForMonth() {
     var month = $('.selectMonth').val();
     var dto = {
         Month: month
@@ -146,7 +153,7 @@ function ReturnBestsellersPerMonth() {
 }
 
 
-ReturnBestsellersPerMonth();
+ReturnBestsellersForMonth();
 
 //filters by one month
 $('#searchByMonth').click(function () {
@@ -158,13 +165,13 @@ $('#searchByMonth').click(function () {
 
     $('#selectSearchByMonth').prop('disabled', false);
 
-    ReturnBestsellersPerMonth();
+    ReturnBestsellersForMonth();
 });
 
 //change selected month in #selectSearchByMonth
 $('#selectSearchByMonth').change(function () {
 
-    ReturnBestsellersPerMonth();
+    ReturnBestsellersForMonth();
 });
 
 
@@ -290,7 +297,7 @@ function ReturnAppliancesForMonth() {
 //starting page
 $('#startingMonthForAppliances').prop('disabled', true);
 $('#finalMonthForAppliances').prop('disabled', true);
-ReturnAppliancesForMonth();
+
 
 //filters by one month
 $('#searchByMonthForAppliances').click(function () {
@@ -382,27 +389,8 @@ function returnTabaleForSim(obj) {
     $('#NumberOfSalesSimLabel').text(count);
 };
 
-function ReturnSimForMonth() {
-
-    var month = $('#selectSearchByMonthForSim').val();
-
-    var dto = { Month: month };
-
-    $.ajax({
-        type: "POST",
-        url: way + '/Statistics/ReturnSimForMonth',
-        dataType: "json",
-        data: { dto: dto },
-        success: function (obj) {
-            returnTabaleForSim(obj);
-        }
-    });
-}
-
 //startup page
 $('#selectSearchByOperatorsForSim').prop('disabled', true);
-$(SearchByOneMonth());
-
 
 
 //search witch the operator
@@ -411,25 +399,30 @@ $('#searchByOperatorsForSim').click(function () {
 });
 
 
-function SearchByOneMonth(operator) {
+function ReturnSimForMonthForOperator(operator) {
 
     var controllerMethod;
 
-    if (operator == undefined) {
+
+    if (operator == null) {
         controllerMethod = way + '/Statistics/ReturnSimForMonth';
     } else {
         controllerMethod = way + '/Statistics/ReturnSimForMonthForOperator';
     }
 
     var month = $('#selectSearchByMonthForSim').val();
+
+    var dto = { Month: month, Operator: operator };
+
     $.ajax({
         type: "POST",
         url: controllerMethod,
         dataType: "json",
-        data: { month: month, operatorName: operator },
+        data: { dto: dto },
         success: function (obj) {
-            var count = obj.length;
+            returnTabaleForSim(obj);
 
+            var count = obj.length;
             $('#NumberOfSalesSimLabel').text(count);
         }
     });
@@ -438,7 +431,7 @@ function SearchByOneMonth(operator) {
 
 function checkWhichSearchIsActiveByMonthOrForPeriod(operator) {
     if ($('#searchByMonthForSim').is(':checked')) {
-        return SearchByOneMonth(operator);
+        return ReturnSimForMonthForOperator(operator);
     } else {
         return SearchForPeriodForSim(operator);
     }
@@ -467,7 +460,7 @@ $('#searchByMonthForSim').click(function () {
         changeValueMonthToDefault();
         checkOnSelectOperator();
     } else {
-        SearchByOneMonth();
+        ReturnSimForMonthForOperator();
     }
 
     $('#searchForPeriodForSim').prop('checked', false);
@@ -476,10 +469,11 @@ $('#searchByMonthForSim').click(function () {
 
     $('#selectSearchByMonthForSim').prop('disabled', false);
 
+
 });
 
 $('#selectSearchByMonthForSim').change(function () {
-    var selectedOperator;
+    var selectedOperator = null;
     if ($('#selectSearchByOperatorsForSim').prop('disabled') == false) {
         selectedOperator = $('#selectSearchByOperatorsForSim').val();
         $(checkWhichSearchIsActiveByMonthOrForPeriod(selectedOperator));
@@ -491,7 +485,7 @@ $('#selectSearchByMonthForSim').change(function () {
 
 $('#selectSearchByOperatorsForSim').change(function () {
     var selectedOperator = $('#selectSearchByOperatorsForSim').val();
-    $(SearchByOneMonth(selectedOperator));
+    $(ReturnSimForMonthForOperator(selectedOperator));
 });
 
 
@@ -501,29 +495,63 @@ $('#selectSearchByOperatorsForSim').change(function () {
 function SearchForPeriodForSim(operator) {
     var controllerMethod;
     if (operator == undefined) {
-        controllerMethod = way + '/Statistics/ReturnSimForPeriod';
+        controllerMethod = way + '/Statistics/ReturnSimForMonth';
+        operator = null;
     } else {
-        controllerMethod = way + '/Statistics/ReturnSimPerPeriodForOperator';
+        controllerMethod = way + '/Statistics/ReturnSimForPeriodForOperator';
     }
 
     var startMonth = $('#startingMonthForSim').val();
     var finalMonth = $('#finalMonthForSim').val();
 
+    var dto = { StartMonth: startMonth, EndMonth: finalMonth, Operator: operator };
+
     $.ajax({
         type: "POST",
         url: controllerMethod,
         dataType: "json",
-        data: { startingMonth: startMonth, finalMonth: finalMonth, operatorName: operator },
+        data: { dto: dto },
         success: function (obj) {
-            var count = obj.length;
+            ReturnSimForPeriodForOperator(operator);
 
+            var count = obj.length;
             $('#NumberOfSalesSimLabel').text(count);
         }
     });
 }
 
+function ReturnSimForPeriodForOperator(operator) {
+
+    var controllerMethod;
+
+
+    if (operator == null) {
+        controllerMethod = way + '/Statistics/ReturnSimForPeriod';
+    } else {
+        controllerMethod = way + '/Statistics/ReturnSimForPeriodForOperator';
+    }
+
+    var startMonth = $('#startingMonthForSim').val();
+    var finalMonth = $('#finalMonthForSim').val();
+    var dto = { StartMonth: startMonth, EndMonth: finalMonth, Operator: operator };
+
+    $.ajax({
+        type: "POST",
+        url: controllerMethod,
+        dataType: "json",
+        data: { dto: dto },
+        success: function (obj) {
+            returnTabaleForSim(obj);
+
+            var count = obj.length;
+            $('#NumberOfSalesSimLabel').text(count);
+        }
+    });
+
+}
+
 $('#startingMonthForSim,#finalMonthForSim').change(function () {
-    var selectedOperator;
+    var selectedOperator = null;
     if ($('#selectSearchByOperatorsForSim').prop('disabled') === false) {
         selectedOperator = $('#selectSearchByOperatorsForSim').val();
     }
