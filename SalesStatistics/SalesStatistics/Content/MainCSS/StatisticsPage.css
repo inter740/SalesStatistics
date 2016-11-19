@@ -4,37 +4,41 @@
     border: 3px solid cornflowerblue;
     overflow: auto;
     position: relative;
- }
+}
+
+.addBlock {
+    display: inline-block;
+
+}
+
+.notificationAboutAddedSale {
+    color: forestgreen;
+}
 
 .tab {
     padding-left: 10%;
     width: 90%;
-    position:absolute; /* Абсолютное позиционирование */
-    /*visibility: hidden;*/    /* Изначально - спрятан */
-    /*display: none;*/
-    z-index: 10;    /* z-index */
-    color:#478CFB; /* Цвет */
+    position: absolute; /* Абсолютное позиционирование */
+    z-index: 10; /* z-index */
+    color: #478CFB; /* Цвет */
     font: bold 12pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
-    
 }
 
 .DataFilters {
     position: absolute;
     border: 1px black;
     padding-left: 40%;
-    
 }
 
 
 
-.tabsLink a{
-    background-color:#478CFB; 
-    padding:5px; /* Внутренние отступы */
+.tabsLink a {
+    background-color: #478CFB;
+    padding: 5px; /* Внутренние отступы */
     font: bold 12pt "Trebuchet MS", tahoma, verdana, arial narrow, arial; /* Толщина, размер и семейство шрифта */
-    color:#fff;
-    text-decoration:none; /* Отсутствие нижней линии */
+    color: #fff;
+    text-decoration: none; /* Отсутствие нижней линии */
     padding: 2px;
-
     /* Округление */
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
@@ -42,14 +46,13 @@
     -moz-border-radius-topright: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    
 }
 
 /* table*/
 .table {
     border: 2px forestgreen;
     float: left;
-    width: 30%;  
+    width: 30%;
 }
 
 .th {
@@ -68,6 +71,7 @@
     background-color: gainsboro;
     width: 200px;
     overflow: hidden;
+    float: left;
 }
 
 
@@ -75,4 +79,77 @@
     color: crimson;
     text-align: center;
     font-size: medium;
+}
+
+.regText {
+    margin-right: 20px;
+}
+
+.textBoxForRegistration {
+    padding-right: 10%;
+}
+
+.form_row {
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.form_row input {
+        float: right;
+        height: 19px;
+        line-height: 19px;
+        margin: 0px;
+        padding: 0px 5px;
+        width: 287px;
+        border: 1px solid #ABADB3;
+}
+
+.form {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.form_row textarea {
+	height: 90px;
+    line-height: 16px;
+    font-size: 12px;
+    padding: 0px 5px;
+    width: 404px;
+    border: 1px solid #ABADB3;
+}
+
+.form_row input[type=submit] {
+	padding:5px;
+	height:25px;
+	width:80%;
+	line-height: 10px;
+	background: #337AB7;
+	color:white;
+}
+
+.form_row input[type=submit]:hover {
+	background:#286090;
+}
+
+* {
+	font-family:arial;
+	font-size:10pt;
+}
+
+/*Admin Page*/
+
+#adminList {
+    padding: 10px;
+    margin: 10px;
+    background-color: #abadb3;
+    
+}
+
+.userListBox {
+    float: left;
+    margin: 5px;
+}
+
+.dltBtn {
+    
 }

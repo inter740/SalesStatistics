@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using SalesStatistics.Data;
 using SalesStatistics.Data.Entities;
 
-namespace SalesStatistics.Helpers
+namespace SalesStatistics.BL.Helpers
 {
     public static class AuthHelper
     {

@@ -15,5 +15,8 @@
         });
         $('#BestsellersPrice').val('');
         $('#BestsellersCount').val('1');
+
+        $('#bestsellersSuccessfullyAddedText').fadeIn(200);
+        $('#bestsellersSuccessfullyAddedText').fadeOut(3500);
     });
 })

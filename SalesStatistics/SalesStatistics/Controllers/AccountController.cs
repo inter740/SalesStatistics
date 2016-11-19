@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SalesStatistics.Data;
 using SalesStatistics.Data.Entities;
 using SalesStatistics.Models;
+using SalesStatistics.BL;
 
 namespace SalesStatistics.Controllers
 {
@@ -14,22 +15,22 @@ namespace SalesStatistics.Controllers
         // GET: Account
         public ActionResult Registration()
         {
-            if (Helpers.AuthHelper.IsAuthenticated(HttpContext))
+            if (BL.Helpers.AuthHelper.IsAuthenticated(HttpContext))
             {
                 return RedirectToAction("Index", "Home");
             }
             return View();
         }
 
-        
+
         [HttpPost]
         public ActionResult Registration(User user)
         {
-            if (!Helpers.AuthHelper.IsAuthenticated(HttpContext))
+            if (!BL.Helpers.AuthHelper.IsAuthenticated(HttpContext))
             {
                 user.RoleId = 2;
                 user.Cookies = Guid.NewGuid().ToString(); // cookie для авторизации
-                user.Password = Helpers.SecurityHelper.Hash(user.Password);
+                user.Password = BL.Helpers.SecurityHelper.Hash(user.Password);
 
                 if (!ServiceToWorkWithUsers.FindUser(user.LastName))
                 {
@@ -38,7 +39,7 @@ namespace SalesStatistics.Controllers
 
                 ServiceToWorkWithUsers.AddUser(user);
 
-                AutorizeModel autorize = new AutorizeModel() {LastName = user.LastName, Password = user.Password};
+                AutorizeModel autorize = new AutorizeModel() { LastName = user.LastName, Password = user.Password };
                 LoginAfterRegistration(autorize);
             }
 
@@ -47,7 +48,7 @@ namespace SalesStatistics.Controllers
 
         public ActionResult Login()
         {
-            if (Helpers.AuthHelper.IsAuthenticated(HttpContext))
+            if (BL.Helpers.AuthHelper.IsAuthenticated(HttpContext))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -58,10 +59,10 @@ namespace SalesStatistics.Controllers
         public ActionResult Login(AutorizeModel autorize)
         {
             User user = ServiceToWorkWithUsers.GetUser(autorize.LastName,
-                    Helpers.SecurityHelper.Hash(autorize.Password));
+                    BL.Helpers.SecurityHelper.Hash(autorize.Password));
             if (user != null)
             {
-                Helpers.AuthHelper.LogInUser(HttpContext, user.Cookies);
+                BL.Helpers.AuthHelper.LogInUser(HttpContext, user.Cookies);
 
                 switch (user.Role.RoleName)
                 {
@@ -77,10 +78,10 @@ namespace SalesStatistics.Controllers
         private ActionResult LoginAfterRegistration(AutorizeModel autorize)
         {
             User user = ServiceToWorkWithUsers.GetUser(autorize.LastName, autorize.Password);
-           
+
             if (user != null)
             {
-                Helpers.AuthHelper.LogInUser(HttpContext, user.Cookies);
+                BL.Helpers.AuthHelper.LogInUser(HttpContext, user.Cookies);
 
                 switch (user.Role.RoleName)
                 {
@@ -95,7 +96,7 @@ namespace SalesStatistics.Controllers
 
         public ActionResult LogOff()
         {
-            Helpers.AuthHelper.LogOffUser(HttpContext);
+            BL.Helpers.AuthHelper.LogOffUser(HttpContext);
 
             return RedirectToAction("Login", "Account");
         }

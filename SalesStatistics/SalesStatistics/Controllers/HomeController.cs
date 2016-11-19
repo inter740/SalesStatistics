@@ -21,11 +21,11 @@ namespace SalesStatistics.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var user = BL.Helpers.AuthHelper.GetUser(HttpContext);
 
             ModelForHome model = new ModelForHome(user);
 
-            if (!Helpers.AuthHelper.IsAuthenticated(HttpContext))
+            if (!BL.Helpers.AuthHelper.IsAuthenticated(HttpContext))
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -64,7 +64,7 @@ namespace SalesStatistics.Controllers
         [AllowAnonymous]
         public string GetUserName()
         {
-            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var user = BL.Helpers.AuthHelper.GetUser(HttpContext);
 
             ModelForHome model = new ModelForHome(user);
 
@@ -73,7 +73,7 @@ namespace SalesStatistics.Controllers
 
         private int GetUserId()
         {
-            var user = Helpers.AuthHelper.GetUser(HttpContext);
+            var user = BL.Helpers.AuthHelper.GetUser(HttpContext);
             return user.Id;
         }
 

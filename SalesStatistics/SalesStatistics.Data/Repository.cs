@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SalesStatistics.Data.Entities;
+using SalesStatistics.Data.Entities.Abstract;
 
 namespace SalesStatistics.Data
 {
@@ -15,6 +16,12 @@ namespace SalesStatistics.Data
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
+        }
+
+        //todo change in db
+        public void Change<T>(T entity) where T : BaseEntity
+        {
+            
         }
 
         public IEnumerable<T> Get<T>() where T : BaseEntity

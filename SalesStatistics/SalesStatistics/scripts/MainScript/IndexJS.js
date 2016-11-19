@@ -377,7 +377,7 @@ $('#startingMonthForAppliances, #finalMonthForAppliances').change(function () {
 
 function returnTabaleForSim(obj) {
 
-    $('.addedTr').detach();
+    $('.addedTr').detach(); //clean off
 
     for (var i = 0; i < obj.length; i++) {
 

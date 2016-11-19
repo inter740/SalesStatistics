@@ -16,7 +16,7 @@ namespace SalesStatistics.Controllers
         public ActionResult UserAccount()
         {
 
-            User user = Helpers.AuthHelper.GetUser(HttpContext);
+            User user = BL.Helpers.AuthHelper.GetUser(HttpContext);
             ModelForHome model = new ModelForHome(user);
             return View("UserPage", model);
         }

@@ -13,5 +13,8 @@
             data: { insurance: insurance }
         });
         $('#InsurancePrice').val('');
+
+        $('#insuranceSuccessfullyAddedText').fadeIn(200);
+        $('#insuranceSuccessfullyAddedText').fadeOut(3500);
     });
 })

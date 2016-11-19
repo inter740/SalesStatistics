@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SalesStatistics.Data.Entities;
+using SalesStatistics.Data.Entities.Abstract;
 
 namespace SalesStatistics.Data
 {
@@ -42,5 +43,6 @@ namespace SalesStatistics.Data
         {
             return _repository.Get<T>();
         }
+
     }
 }

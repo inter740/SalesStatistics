@@ -8,7 +8,7 @@ using SalesStatistics.Data.Entities;
 
 namespace SalesStatistics.BL.castToDto
 {
-    public static class CastBestsellerToDto
+    public static class CastToDto
     {
         public static List<DtoBestseller> BestsellersListDto(IEnumerable<Bestseller> best)
         {
@@ -54,5 +54,18 @@ namespace SalesStatistics.BL.castToDto
 
             return dtoList;
         }
+
+        public static List<DtoUser> UsersList(IEnumerable<User> users)
+        {
+            List <DtoUser> dtoList= new List<DtoUser>();
+
+            foreach (var u in users)
+            {
+                DtoUser dto = new DtoUser(u);
+                dtoList.Add(dto);
+            }
+
+            return dtoList;
+        } 
     }
 }

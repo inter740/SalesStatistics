@@ -4,24 +4,37 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.ActionLink("adm", "Admin", "Admin", new { area = "" }, new { @class = "navbar-brand" })<br />
 <h2>Система подсчета основных показателей продавца-консультанта</h2>
 
 <div>
-    <div class="containerToAdd" id="BestsellerContainer">
-        @Html.Partial("_Bestseller")
+    <div class="addBlock">
+        <div class="containerToAdd" id="BestsellerContainer">
+            @Html.Partial("_Bestseller")
+        </div>
+        <text class="notificationAboutAddedSale" hidden="true" id="bestsellersSuccessfullyAddedText">Хит добавлен</text>
     </div><br />
 
-    <div class="containerToAdd" id="AppliancesContainer">
-        @Html.Partial("_Appliances")
+    <div class="addBlock">
+        <div class="containerToAdd" id="AppliancesContainer">
+            @Html.Partial("_Appliances")
+        </div>
+        <text class="notificationAboutAddedSale" hidden="true" id="appliancesSuccessfullyAddedText">Бытовая техника добавлена</text>
     </div><br />
 
-    <div class="containerToAdd" id="SimCardContainer">
-        @Html.Partial("_SimCard")
+    <div class="addBlock">
+        <div class="containerToAdd" id="SimCardContainer" style="float: left;">
+            @Html.Partial("_SimCard")
+        </div>
+        <text class="notificationAboutAddedSale" hidden="true" id="simSuccessfullyAddedText">Сим карта добавлена</text>
     </div><br />
 
-    <div class="containerToAdd" id="InsuranceContainer">
-        @Html.Partial("_Insurance")
+    <div class="addBlock">
+        <div class="containerToAdd" id="InsuranceContainer">
+            @Html.Partial("_Insurance")
+        </div>
+        <text class="notificationAboutAddedSale" hidden="true" id="insuranceSuccessfullyAddedText">Страховка добавлена</text>
     </div>
 </div>
+
 

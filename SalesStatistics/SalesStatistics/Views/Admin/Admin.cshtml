@@ -1,8 +1,29 @@
-﻿
+﻿@model SalesStatistics.Models.ModelGetStatisticsData
+
 @{
     ViewBag.Title = "Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@* TODO show users *@
 <h2>Admin</h2>
 
+<div>
+    <input type="button" id="showAllUsers" value="Показать пользователей"/>
+    <label id="NumberOfUsers">0</label>
+</div>
+
+<div id="adminList">
+    
+</div>
+
+<div id="adminTable">
+    <table class="AdminTable">
+        <caption style="color: forestgreen"></caption>
+        <tr>
+
+        </tr>
+    </table>
+</div>
+
+@Scripts.Render("~/scripts/MainScript/AdminPage.js")

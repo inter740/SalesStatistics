@@ -29,5 +29,8 @@
 
         $('#AppliancesPrice').val('');
         $('#AppliancesCount').val('1');
+
+        $('#appliancesSuccessfullyAddedText').fadeIn(200);
+        $('#appliancesSuccessfullyAddedText').fadeOut(3500);
     });
 })

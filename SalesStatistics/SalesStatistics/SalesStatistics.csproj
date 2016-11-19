@@ -150,6 +150,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\MainScript\AdminPage.js" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -218,11 +219,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AuthHelper.cs" />
-    <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Models\AutorizeModel.cs" />
     <Compile Include="Models\ModelForHome.cs" />
-    <Compile Include="Models\ModelForStatistics.cs" />
+    <Compile Include="Models\ModelGetStatisticsData.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
