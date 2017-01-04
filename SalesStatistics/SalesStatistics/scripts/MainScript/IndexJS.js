@@ -10,7 +10,7 @@ $('#linkBest').click(function () {
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkSim').css('background-color', '#478CFB');
 
-    changeValueMonthToDefault();
+    changeDateToDefault();
     ReturnBestsellersForMonth();
 });
 
@@ -21,7 +21,7 @@ $('#linkAppliances').click(function () {
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkSim').css('background-color', '#478CFB');
 
-    changeValueMonthToDefault();
+    changeDateToDefault();
     ReturnAppliancesForMonth();
 });
 
@@ -32,7 +32,7 @@ $('#linkSim').click(function () {
     $('#linkInsurance').css('background-color', '#478CFB');
     $('#linkBest').css('background-color', '#478CFB');
 
-    changeValueMonthToDefault();
+    changeDateToDefault();
     $('#searchByOperatorsForSim').prop('checked', false);
     $('#selectSearchByOperatorsForSim').prop('disabled', true);
     ReturnSimForMonthForOperator();
@@ -82,7 +82,36 @@ $.ajax({
     }
 });
 
+function setDate() {
+    var m = 0;
+    while (m < 12) {
+        m++;
+        $('.selectMonth').append($('<option class="optionInSelectMonth" value="' + m + '">' + m + '</option>'));
+    }
+    var monthNow = $('.selectMonth').data("month");
+    $(".selectMonth [value=" + monthNow + "]").attr("selected", "selected");
 
+    var y = 0;
+    while (y < 4) {
+        var year = $('.selectYear').data("year") - y;
+        y++;
+        $('.selectYear').append($('<option class="optionInSelectMonth" value="' + year + '">' + year + '</option>'));
+    }
+    var yearNow = $('.selectYear').data("year");
+    $(".selectYear [value=" + yearNow + "]").attr("selected", "selected");
+}
+
+function changeDateToDefault() {
+    var monthNow = $('.selectMonth').data("month");
+    $('.selectMonth').val(monthNow);
+
+    var yearNow = $('.selectYear').data("year");
+    $('.selectYear').val(yearNow);
+}
+
+$('.selectYear').change(function() {
+    ReturnBestsellersForMonth();
+});
 
 //--------------------------------------------------------------------------Start Bestsellers
 
@@ -116,34 +145,17 @@ function returnTabaleForBestsellers(obj) {
     $('#totalPriceOfSalesHitsLabel').text(totalPrice);
     $('#arangePriceOfSalesHitsLabel').text(arangePrice);
 };
-
-
-//Startup page
-$('#startingMontForBestsellers').prop('disabled', true);
-$('#finalMonthForBestsellers').prop('disabled', true);
-
-var m = 0;
-while (m < 12) {
-    m++;
-    $('.selectMonth').append($('<option class="optionInSelectMonth" value="' + m + '">' + m + '</option>'));
-}
-var monthNow = $('.selectMonth').data("month");
-$(".selectMonth [value=" + monthNow + "]").attr("selected", "selected");
-
-function changeValueMonthToDefault() {
-    var monthNow = $('.selectMonth').data("month");
-    $('.selectMonth').val(monthNow);
-}
-
 function ReturnBestsellersForMonth() {
     var month = $('.selectMonth').val();
+    var year = $('.selectYear').val();
     var dto = {
-        Month: month
-    }
+        Month: month,
+        Year: year
+}
 
     $.ajax({
         type: "POST",
-        url: way + '/Statistics/ReturnPerMonth',
+        url: way + '/Statistics/ReturnBestsellersPerMonth',
         dataType: "json",
         data: { dto: dto },
         success: function (obj) {
@@ -152,12 +164,17 @@ function ReturnBestsellersForMonth() {
     });
 }
 
+//Startup page
+$('#startingMontForBestsellers').prop('disabled', true);
+$('#finalMonthForBestsellers').prop('disabled', true);
+
+setDate();
 
 ReturnBestsellersForMonth();
 
 //filters by one month
 $('#searchByMonth').click(function () {
-    changeValueMonthToDefault();
+    changeDateToDefault();
 
     $('#searchByPeriod').prop('checked', false);
     $('#startingMontForBestsellers').prop('disabled', true);
@@ -192,10 +209,12 @@ function returnBestsellersByPeriod() {
 function periodBest() {
     var startingMonth = $('#startingMontForBestsellers').val();
     var finalMonth = $('#finalMonthForBestsellers').val();
+    var year = $('.selectYear').val();
     var dto = {
         StartMonth: startingMonth,
-        EndMonth: finalMonth
-    }
+        EndMonth: finalMonth,
+        Year: year
+}
 
     return dto;
 }
@@ -206,7 +225,7 @@ $('#searchByPeriod').click(function () {
 
 
 $('#searchByPeriod').click(function () {
-    changeValueMonthToDefault();
+    changeDateToDefault();
 
     $('#searchByMonth').prop('checked', false);
     $('#startingMontForBestsellers').prop('disabled', false);
@@ -301,7 +320,7 @@ $('#finalMonthForAppliances').prop('disabled', true);
 
 //filters by one month
 $('#searchByMonthForAppliances').click(function () {
-    changeValueMonthToDefault();
+    changeDateToDefault();
 
     $('#searchByPeriodForAppliances').prop('checked', false);
     $('#startingMonthForAppliances').prop('disabled', true);
@@ -351,7 +370,7 @@ $('#searchByPeriodForAppliances').click(function () {
 
 
 $('#searchByPeriodForAppliances').click(function () {
-    changeValueMonthToDefault();
+    changeDateToDefault();
     $('#searchByMonthForAppliances').prop('checked', false);
     $('#startingMonthForAppliances').prop('disabled', false);
     $('#finalMonthForAppliances').prop('disabled', false);
@@ -457,7 +476,7 @@ function checkOnSelectOperator() {
 
 $('#searchByMonthForSim').click(function () {
     if ($('#searchByMonthForSim').is(':checked')) {
-        changeValueMonthToDefault();
+        changeDateToDefault();
         checkOnSelectOperator();
     } else {
         ReturnSimForMonthForOperator();
@@ -560,7 +579,7 @@ $('#startingMonthForSim,#finalMonthForSim').change(function () {
 
 $('#searchForPeriodForSim').click(function () {
     if ($('#searchForPeriodForSim').is(':checked')) {
-        changeValueMonthToDefault();
+        changeDateToDefault();
         checkOnSelectOperator();
     } else {
         SearchForPeriodForSim();

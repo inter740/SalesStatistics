@@ -9,24 +9,25 @@
 <div id="registr_container">
     @using (Html.BeginForm("Registration", "Account", FormMethod.Post, new { @class = "form" }))
     {
-        @Html.ValidationMessageFor(r => r.FirstName)
+
         <div class="form_row">
-            <label class="regText">Имя:</label> @Html.TextBoxFor(r => r.FirstName, new {@class = "textBoxForRegistration"})
+                <label class="regText">Имя:</label> @Html.TextBoxFor(r => r.FirstName, new { @class = "textBoxForRegistration" })
+                <div style="float: right; color: red;">@Html.ValidationMessageFor(r => r.FirstName)</div>
         </div>
-        @Html.ValidationMessageFor(r => r.LastName)
+        
         <div class="form_row">
             <label class="regText">Фамилия:</label> @Html.TextBoxFor(r => r.LastName, new {@class = "textBoxForRegistration"})
-
+            <div style="float: right; color: red;">@Html.ValidationMessageFor(r => r.LastName)</div>
         </div>
-        @Html.ValidationMessageFor(r => r.Password)
+        
         <div class="form_row">
             <label class="regText">Пароль:</label> @Html.PasswordFor(r => r.Password, new {@class = "textBoxForRegistration"})
-
+            <div style="float: right; color: red;">@Html.ValidationMessageFor(r => r.Password)</div>
         </div>
-        @Html.ValidationMessageFor(r => r.DPassword)
+       
         <div class="form_row">
             <label class="regText">Повторите пароль:</label> @Html.PasswordFor(r => r.DPassword, new { @class = "textBoxForRegistration" })
-            
+            <div style="float: right; color: red;">@Html.ValidationMessageFor(r => r.DPassword)</div>
         </div>
         <div class="form_row">
             <input type="submit" value="Зарегистрироваться" />

@@ -44,5 +44,10 @@ namespace SalesStatistics.Data
             return _repository.Get<T>();
         }
 
+        //todo method getbyid
+        public void GetById<T>(int id) where T : BaseEntity
+        {
+            
+        }
     }
 }

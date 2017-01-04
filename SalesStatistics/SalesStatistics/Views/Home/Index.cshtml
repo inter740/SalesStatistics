@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.ActionLink("adm", "Admin", "Admin", new { area = "" }, new { @class = "navbar-brand" })<br />
+@*@Html.ActionLink("adm", "Admin", "Admin", new { area = "" }, new { @class = "navbar-brand" })<br />*@
 <h2>Система подсчета основных показателей продавца-консультанта</h2>
 
-<div>
+<div class="jumbotron">
     <div class="addBlock">
         <div class="containerToAdd" id="BestsellerContainer">
             @Html.Partial("_Bestseller")
@@ -29,7 +29,7 @@
         <text class="notificationAboutAddedSale" hidden="true" id="simSuccessfullyAddedText">Сим карта добавлена</text>
     </div><br />
 
-    <div class="addBlock">
+    <div class="addBlock" >
         <div class="containerToAdd" id="InsuranceContainer">
             @Html.Partial("_Insurance")
         </div>

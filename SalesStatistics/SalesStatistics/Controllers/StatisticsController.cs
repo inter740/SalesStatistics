@@ -27,10 +27,10 @@ namespace SalesStatistics.Controllers
 
 
         [HttpPost]
-        public JsonResult ReturnPerMonth(DtoBestseller dto)
+        public JsonResult ReturnBestsellersPerMonth(DtoBestseller dto)
         {
             var user = BL.Helpers.AuthHelper.GetUser(HttpContext);
-            var query = _service.Get<Bestseller>().Where(x => x.Date.Month == dto.Month && x.UserId == user.Id);
+            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month == dto.Month && x.Date.Year==dto.Year) && x.UserId == user.Id);
             var hits = CastToDto.BestsellersListDto(query);
 
             return Json(hits);
@@ -41,7 +41,7 @@ namespace SalesStatistics.Controllers
         public JsonResult ReturnBestsellersForPeriod(DtoBestseller dto)
         {
             var user = BL.Helpers.AuthHelper.GetUser(HttpContext);
-            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.UserId == user.Id));
+            var query = _service.Get<Bestseller>().Where(x => (x.Date.Month >= dto.StartMonth && x.Date.Month <= dto.EndMonth && x.Date.Year == dto.Year) && x.UserId == user.Id);
             var hits = CastToDto.BestsellersListDto(query);
             return Json(hits);
         }
@@ -77,7 +77,7 @@ namespace SalesStatistics.Controllers
             return Json(sim);
         }
 
-        //TODO all under this
+
         [HttpPost]
         public JsonResult ReturnSimForMonthForOperator(DtoSim dto)
         {

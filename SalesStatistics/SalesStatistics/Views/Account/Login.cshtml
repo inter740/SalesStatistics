@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 align="center">Login</h2>
+<h3 align="center">Авторизация</h3>
+
 
 @if (SalesStatistics.BL.Helpers.AuthHelper.IsAuthenticated(Context))
 {
@@ -16,18 +17,21 @@ else
 {
     using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { @class = "form" }))
     {
+
         <div class="form_row">
-            @Html.TextBoxFor(l => l.LastName)
+           <label>Логин </label> @Html.TextBoxFor(l => l.LastName)
+            <div style="float: right; color: red;">
+                @Html.ValidationMessageFor(l => l.LastName)
+            </div>
         </div>
+
         <div class="form_row">
-            @Html.ValidationMessageFor(l => l.LastName)
+            <label>Пароль </label>@Html.PasswordFor(l => l.Password)
+            <div style="float: right; color: red;">
+                @Html.ValidationMessageFor(l => l.Password)
+            </div>
         </div>
-        <div class="form_row">
-            @Html.PasswordFor(l => l.Password)
-        </div>
-        <div class="form-row">
-            @Html.ValidationMessageFor(l => l.Password)
-        </div>
+
         <div class="form_row">
             <input type="submit" value="Войти" />
         </div>

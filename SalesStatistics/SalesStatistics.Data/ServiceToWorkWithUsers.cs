@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SalesStatistics.Data.Entities;
 
 namespace SalesStatistics.Data
@@ -14,12 +10,17 @@ namespace SalesStatistics.Data
 
         public static User GetUser(string lastName, string password)
         {
-            return _context.Set<User>().Select(p => p).Include(x => x.Role).FirstOrDefault(u => u.LastName == lastName && u.Password == password);
+                return
+                    _context.Set<User>()
+                        .Select(p => p)
+                        .Include(x => x.Role)
+                        .FirstOrDefault(u => u.LastName == lastName && u.Password == password);
         }
 
         public static User GetUserByCookeis(string coockies)
         {
-                return _context.Set<User>().Select(p => p).Include(x => x.Role).FirstOrDefault(u => u.Cookies == coockies);
+            return
+                _context.Set<User>().Select(p => p).Include(x => x.Role).FirstOrDefault(u => u.Cookies == coockies);
         }
 
         public static void AddUser(User user)

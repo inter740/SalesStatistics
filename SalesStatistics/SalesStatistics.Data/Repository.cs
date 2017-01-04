@@ -24,6 +24,11 @@ namespace SalesStatistics.Data
             
         }
 
+        public IEnumerable<T> GetById<T>(int id) where T : BaseEntity
+        {
+            return _context.Set<T>().Where(x=>x.Id==id);
+        }
+
         public IEnumerable<T> Get<T>() where T : BaseEntity
         {
             return _context.Set<T>();

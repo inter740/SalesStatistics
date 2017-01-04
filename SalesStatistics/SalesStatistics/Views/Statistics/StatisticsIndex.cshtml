@@ -25,6 +25,10 @@
             <b style="color: black">Общая стоимость проданных хитов:<label id="totalPriceOfSalesHitsLabel"></label></b><br />
 
             <div>
+                <b>Год: </b>
+                <select class="selectYear" data-year="@DateTime.Today.Year"></select>
+            </div>
+            <div>
                 <input type="radio" class="RadioInput_searchBy" id="searchByMonth" checked="checked" /><b>Показать за месяц</b>
                 <select class="selectMonth" id="selectSearchByMonth" data-month="@DateTime.Today.Month"></select>
             </div><br />
@@ -50,7 +54,12 @@
         <div class="DataFilters">
             <b style="color: black">Проданно бытовой техники: <label id="NumberOfSalesAppliancesLabel"></label></b><br />
             <b style="color: black">Средняя стоимость проданной бытовухи:<label id="arangePriceOfSalesAppliancesLabel"></label></b><br />
-            <b style="color: black">Общая стоимость проданной бытовухи:<label id="totalPriceOfSalesAppliancesLabel"></label></b><br />
+            <b style="color: black">Общая стоимость проданной бытовухи:<label id="totalPriceOfSalesAppliancesLabel"></label></b><br/>
+
+            <div>
+                <b>Год: </b>
+                <select class="selectYear" data-year="@DateTime.Today.Year"></select>
+            </div>
 
             <div>
                 <input type="radio" class="RadioInput_searchBy" id="searchByMonthForAppliances" checked="checked" /><b>Показать за месяц</b>
@@ -87,7 +96,13 @@
                     <option id="Tele2">Tele2</option>
                     <option id="MTS">MTS</option>
                 </select>
-            </div><br />
+            </div><br/>
+
+            <div>
+                <b>Год: </b>
+                <select class="selectYear" data-year="@DateTime.Today.Year"></select>
+            </div>
+
             <div>
                 <input type="radio" class="RadioInput_searchBy" id="searchByMonthForSim" checked="checked" /><b>Показать за месяц</b>
                 <select class="selectMonth" id="selectSearchByMonthForSim" data-month="@DateTime.Today.Month"></select>

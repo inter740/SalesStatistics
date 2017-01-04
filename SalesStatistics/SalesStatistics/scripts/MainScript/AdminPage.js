@@ -9,12 +9,18 @@ function CreateTabale(obj) {
     $('#NumberOfUsers').text(count);
 };
 
+//todo this function
 function createList(obj) {
     $('#adminList').empty();
     for (var i = 0; i < obj.length; i++) {
-        $('#adminList').append('<div class="userListBox"><input class="addedList" id="input' + obj[i].Id + '" data-userId="' + obj[i].Id + '" value="' + obj[i].LastName + ' ' + obj[i].FirstName + '" disabled="true"/></div> ' +
+        $('#adminList').append('<div>' +
+            '<div class="userListBox"><input class="addedList" style="width: 90px;" id="inputLastName' + obj[i].Id + '" data-userId="' + obj[i].Id + '" value="' + obj[i].LastName + '" disabled="true"/> ' +
+            '<input class="addedList"  style="width: 90px;" id="inputFirstName' + obj[i].Id + '" data-userId="' + obj[i].Id + '" value="' + obj[i].FirstName + '" disabled="true""/>' +
+            '<input class="addedList"  style="width: 30px;" id="inputLastName' + obj[i].Id + '" data-userId="' + obj[i].Id + '" value="' + obj[i].RoleId + '" disabled="true""/></div> ' +
+            
             '<div><button class="changeBtn" id="changeBtn' + obj[i].Id + '" data-userId="' + obj[i].Id + '">Change</button> ' +
-            '<button class="adminBtn" data-userId="' + obj[i].Id + '">Delete</button></div> </br>');
+            '<button class="adminBtn" data-userId="' + obj[i].Id + '">Delete</button></div>' +
+            '</div> </br>');
     }
 }
 
@@ -32,7 +38,7 @@ function ReturnAllUsers() {
     });
 }
 
-$('#showAllUsers').click(function() {
+$('#showAllUsers').click(function () {
     ReturnAllUsers();
 });
 
@@ -42,7 +48,10 @@ $('#changeBtn').on("click", function () {
 
 //todo change and other function change db
 $(document).on("click", ".changeBtn", function () {
+    $('.addedList').each(function () {
+        $(this).prop("disabled", true);
+    });
+
     var inputId = $(this).data("userid");
     $("#input" + inputId + "").prop("disabled", false);
-    alert(inputId);
 });

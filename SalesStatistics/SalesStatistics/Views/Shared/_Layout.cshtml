@@ -13,46 +13,46 @@
     <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
-<body>
+<body >
 
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Главная", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-            @Html.ActionLink("Статистика продаж", "Index", "Statistics", new {area = ""}, new {@class = "navbar-brand"})
-            @Html.ActionLink("Войти", "Login", "Account", new {area = ""}, new {@class = "navbar-brand"})
-            @Html.ActionLink("Выйти", "LogOff", "Account", new {area = ""}, new {@class = "navbar-brand"})
-            @Html.ActionLink("Регистрация", "Registration", "Account", new {area = ""}, new {@class = "navbar-brand"})
-
-            <p id="user"  style="color: dimgray; position: absolute; right: 10px; top: 50px;">
-                Вы вошли как: <label id="" class="userName" style="color: dodgerblue"></label>
-            </p>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-            </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #4169E1">
+        <div class="container">
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Статистика продаж", "Index", "Statistics", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float: left; right: 1px; position: absolute">
+                    @Html.ActionLink("Войти", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Выйти", "LogOff", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Регистрация", "Registration", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <p id="user" style="color: dimgray; position: absolute; right: 10px; top: 50px;">
+                    Вы вошли как: <label id="" class="userName" style="color: dodgerblue"></label>
+                </p>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Sales statistics</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Sales statistics</p>
+        </footer>
+    </div>
 
-@Scripts.Render("~/scripts/MainScript/IndexJS.js")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/scripts/MainScript/IndexJS.js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

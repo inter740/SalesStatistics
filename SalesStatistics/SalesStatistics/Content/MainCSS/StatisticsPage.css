@@ -13,6 +13,7 @@
 
 .notificationAboutAddedSale {
     color: forestgreen;
+    float: right;
 }
 
 .tab {
@@ -67,8 +68,8 @@
 .containerToAdd {
     margin: 5px;
     padding: 5px;
-    border: 2px black solid;
-    background-color: gainsboro;
+    border: 2px darkgray solid;
+    background-color: #FE9A2E;
     width: 200px;
     overflow: hidden;
     float: left;
@@ -131,6 +132,10 @@
 	background:#286090;
 }
 
+.field-validation-error {
+    position: static;
+}
+
 * {
 	font-family:arial;
 	font-size:10pt;
@@ -148,8 +153,6 @@
 .userListBox {
     float: left;
     margin: 5px;
+    background-color: #478cfb;
 }
 
-.dltBtn {
-    
-}

@@ -26,8 +26,9 @@ namespace SalesStatistics.Data.dto
             Id = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
-            Role = user.Role;
+            RoleId = user.RoleId;
             Cookies = user.Cookies;
+            RegDate = user.RegDate;
         }
         
         public DtoUser() { }
